@@ -1,26 +1,29 @@
 import express from "express";
+import { database } from "./db.js";
 
 const app = express();
-const port = process.env.PORT || 3000;
-const users = [
-    {
-        id: 1,
-        username: "admin",
-    },
-    {
-        id: 2,
-        username: "player",
-    },
-];
+const port = process.env.PORT || 8000;
 
 app.use(express.json());
 
-// ---ENDPOINTS---------------------------------------
+// чтобы пофиксить ошибку CORSа
+app.use(function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "origin, content-type, accept");
+
+    // Pass to next layer of middleware
+    next();
+});
+
+// ---USER ENDPOINT---------------------------------------
 app.get("/users", (req, res) => {
+    const users = database.users;
     res.send(users);
 });
 
 app.get("/users/:uid", (req, res) => {
+    const users = database.users;
     const index = users.findIndex((user) => user.id === +req.params.uid);
 
     if (index === -1) {
@@ -31,10 +34,10 @@ app.get("/users/:uid", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-    if (!users.find((user) => user.id === req.body.id)) {
+    const users = database.users;
+    if (!users.find((user) => +user.id === +req.body.id)) {
         const newUser = {
-            id: req.body.id,
-            username: req.body.username,
+            ...req.body,
         };
         users.push(newUser);
         res.send(newUser);
@@ -44,13 +47,29 @@ app.post("/users", (req, res) => {
 });
 
 app.delete("/users/:uid", (req, res) => {
-    const index = users.findIndex((user) => user.id === +req.params.uid);
+    const users = database.users;
+    const index = users.findIndex((user) => user.id === req.params.uid);
 
     if (index > -1) {
         users.splice(index, 1);
     }
 
     res.send(users);
+});
+
+// ------LOGIN ENDPOINT------------------------------
+
+app.post("/login", (req, res) => {
+    const { username, password } = req.body;
+    const { users = [] } = database;
+
+    const userFromDb = users.find((user) => user.username === username && user.password === password);
+
+    if (userFromDb) {
+        return res.json(userFromDb);
+    }
+
+    return res.status(400).json({ message: "User not found" });
 });
 
 // --------------------------------------------------
