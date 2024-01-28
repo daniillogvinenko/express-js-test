@@ -24,12 +24,12 @@ app.use(function (req, res, next) {
 });
 
 // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-app.use(async (req, res, next) => {
-    await new Promise((res) => {
-        setTimeout(res, 800);
-    });
-    next();
-});
+// app.use(async (req, res, next) => {
+//     await new Promise((res) => {
+//         setTimeout(res, 800);
+//     });
+//     next();
+// });
 
 // подключаем все роутеры
 app.use("/", userRouter);
