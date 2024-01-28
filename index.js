@@ -6,6 +6,7 @@ import profileRouter from "./router/profileRouter.js";
 import loginRouter from "./router/loginRouter.js";
 import notificationsRouter from "./router/notificationsRouter.js";
 import articleRatingsRouter from "./router/articleRatingsRouter.js";
+import testsRouter from "./router/testsRouter.js";
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -22,6 +23,14 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
+app.use(async (req, res, next) => {
+    await new Promise((res) => {
+        setTimeout(res, 800);
+    });
+    next();
+});
+
 // подключаем все роутеры
 app.use("/", userRouter);
 app.use("/", articlesRouter);
@@ -30,6 +39,7 @@ app.use("/", profileRouter);
 app.use("/", loginRouter);
 app.use("/", notificationsRouter);
 app.use("/", articleRatingsRouter);
+app.use("/", testsRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

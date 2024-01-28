@@ -853,4 +853,51 @@ export const database = {
             href: "http://localhost:3000/articles",
         },
     ],
+    tests: [
+        {
+            id: 1,
+            name: "1name",
+            userId: 2,
+        },
+        {
+            id: 2,
+            name: "2name",
+            userId: 4,
+        },
+        {
+            id: 3,
+            name: "3name",
+            userId: 1,
+        },
+        {
+            id: 4,
+            name: "4name",
+            userId: 1,
+        },
+        {
+            id: 5,
+            name: "5name",
+            userId: 2,
+        },
+        {
+            id: 6,
+            name: "6name",
+            userId: 3,
+        },
+        {
+            id: 7,
+            name: "7name",
+            userId: 2,
+        },
+        {
+            id: 8,
+            name: "8name",
+            userId: 4,
+        },
+        {
+            id: 9,
+            name: "9name",
+            userId: 1,
+        },
+    ],
 };

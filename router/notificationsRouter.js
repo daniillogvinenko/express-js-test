@@ -1,8 +1,8 @@
 import { Router } from "express";
-import notificationsController from "../controllers/notificationsController.js";
+import { createController } from "../controllers/createController.js";
 
 const notificationsRouter = new Router();
 
-notificationsRouter.get("/notifications", notificationsController.getAll);
+notificationsRouter.get("/notifications", createController("notifications").getAll);
 
 export default notificationsRouter;

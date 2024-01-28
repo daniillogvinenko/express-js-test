@@ -1,12 +1,12 @@
 import { Router } from "express";
-import profileController from "../controllers/profileController.js";
+import { createController } from "../controllers/createController.js";
 
 const profileRouter = new Router();
 
-profileRouter.get("/profile", profileController.getAll);
+profileRouter.get("/profile", createController("profile").getAll);
 
-profileRouter.get("/profile/:id", profileController.getOne);
+profileRouter.get("/profile/:id", createController("profile").getOne);
 
-profileRouter.put("/profile/:id", profileController.put);
+profileRouter.put("/profile/:id", createController("profile").put);
 
 export default profileRouter;

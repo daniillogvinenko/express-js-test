@@ -1,8 +1,8 @@
 import { Router } from "express";
-import commentsController from "../controllers/commentsController.js";
+import { createController } from "../controllers/createController.js";
 
 const commentsRouter = new Router();
 
-commentsRouter.get("/comments", commentsController.getAll);
+commentsRouter.get("/comments", createController("comments").getAll);
 
 export default commentsRouter;

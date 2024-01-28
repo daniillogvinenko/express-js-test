@@ -8,7 +8,7 @@ const loginController = {
         const userFromDb = users.find((user) => user.username === username && user.password === password);
 
         if (userFromDb) {
-            return res.json(userFromDb);
+            return res.status(200).json(userFromDb);
         }
 
         return res.status(400).json({ message: "User not found" });
