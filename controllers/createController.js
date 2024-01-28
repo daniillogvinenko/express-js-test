@@ -12,12 +12,26 @@ export const createController = (entityName) => {
                 resItems = items.slice((page - 1) * limit, (page - 1) * limit + limit);
             }
 
+            // expand работает неправильно, так как всегда добавляет пользователя, но в данном приложении в другой ситуации expand не используется
             if (req.query["_expand"]) {
                 resItems = resItems.map((item) => {
                     const { users } = database;
                     const index = users.findIndex((user) => +user.id === +item.userId);
 
                     return { ...item, user: users[index] };
+                });
+            }
+
+            if (req.query.q) {
+                resItems = resItems.filter((item) => {
+                    let valueStartsWithQuery = false;
+
+                    // если хоть одно из полей объекта начинается со строки запроса, то этот объект подходит под поисковой запрос
+                    Object.values(item).forEach((value) => {
+                        if (String(value).toLowerCase().startsWith(String(req.query.q).toLowerCase()))
+                            valueStartsWithQuery = true;
+                    });
+                    return valueStartsWithQuery;
                 });
             }
 
