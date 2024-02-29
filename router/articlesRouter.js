@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { createController } from "../controllers/createController.js";
+import { articlesController } from "../controllers/articlesController.js";
 
 const articlesRouter = new Router();
 
-articlesRouter.get("/articles", createController("articles").getAll);
+articlesRouter.get("/articles", articlesController.getAll);
 
-articlesRouter.get("/articles/:id", createController("articles").getOne);
+articlesRouter.get("/articles/:id", articlesController.getOne);
 
 export default articlesRouter;

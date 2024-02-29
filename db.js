@@ -82,7 +82,7 @@ export const database = {
             views: 1022,
             createdAt: "26.02.2022",
             userId: "1",
-            type: ["IT"],
+            type: ["ECONOMICS"],
             blocks: [
                 {
                     id: "1",
@@ -152,7 +152,7 @@ export const database = {
             views: 2111,
             createdAt: "26.05.2023",
             userId: "1",
-            type: ["IT"],
+            type: ["SCIENCE"],
             blocks: [
                 {
                     id: "1",
@@ -218,7 +218,7 @@ export const database = {
             views: 25,
             createdAt: "29.10.2023",
             userId: "1",
-            type: ["IT"],
+            type: ["SCIENCE"],
             blocks: [
                 {
                     id: "1",
